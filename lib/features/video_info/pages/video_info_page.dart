@@ -27,6 +27,7 @@ class _VideoInfoPageState extends State<VideoInfoPage> {
   @override
   void initState() {
     super.initState();
+    _init();
   }
 
   @override
@@ -190,13 +191,112 @@ class _VideoInfoPageState extends State<VideoInfoPage> {
                       ],
                     ),
                     // ListView
-                    // ListView()
+
+                    Expanded(child: _buildListView()),
                   ],
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  ListView _buildListView() {
+    return ListView.builder(
+      itemCount: videoInfo.length,
+      itemBuilder: (_, index) {
+        return GestureDetector(
+            onTap: () {
+              debugPrint(index.toString());
+            },
+            child: _buildCard(index));
+      },
+    );
+  }
+
+  _buildCard(int index) {
+    final video = videoInfo[index];
+    return Container(
+      padding: EdgeInsets.only(bottom: 15),
+      // height: 135,
+      // width: 200,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: DecorationImage(
+                    image: AssetImage(video['thumbnail']),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    video['title'],
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    video['time'],
+                    style: TextStyle(
+                      color: Colors.black38,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+          Row(
+            children: [
+              Container(
+                width: 80,
+                height: 20,
+                decoration: BoxDecoration(
+                  color: Color(0xFFeaeefc),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Center(
+                  child: Text(
+                    '15s rest',
+                    style: TextStyle(
+                      color: Color(0xff839fed),
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  for (int i = 0; i < 78; i++)
+                    Container(
+                      width: 3,
+                      height: 1,
+                      decoration: BoxDecoration(
+                        color:
+                            i.isEven ? const Color(0xFF839fed) : Colors.white,
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    )
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
