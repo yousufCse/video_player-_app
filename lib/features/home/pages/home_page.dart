@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:video_player_app/core/uitls/colors.dart';
+import 'package:video_player_app/core/uitls/size_config.dart';
 import 'package:video_player_app/features/video_info/pages/video_info_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,6 +33,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    // Initialize SizeConfig class
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: AppColor.homePageBackground,
       body: SizedBox(
